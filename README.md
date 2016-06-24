@@ -8,8 +8,8 @@ The provided RichTextBox appender is also compatible with [Log4Net.Async](https:
 ![alt tag](https://github.com/bphenriques/Log4NetWrapperLite/blob/master/img/Screenshot.png)
 
 ## Installation
-1. Add Log4NetWrapperLite nuget package in your nuget packages browser
-2. Add RichTextBoxLog4Net appender in the App.config
+- Add Log4NetWrapperLite nuget package in your nuget packages browser
+-  Add RichTextBoxLog4Net appender in the App.config
 ```xml
 <appender name="RichTextBoxLog4Net" type="Log4NetWrapperLite.RichTextBoxLog4NetAppender">
   <layout type="log4net.Layout.PatternLayout">
@@ -23,7 +23,7 @@ The provided RichTextBox appender is also compatible with [Log4Net.Async](https:
 </root>
 ```
 
-3. Set the richtext box in the user Control:
+- Set the richtext box in the user Control:
 ```cs
 public ConsoleTextBoxView() {
   InitializeComponent();
@@ -40,7 +40,7 @@ private void LogTextBox_TextChanged(object sender, TextChangedEventArgs e) {
   LogTextBox.ScrollToEnd();
 }
 ``` 
-4. Log using:
+- Log using:
 ```cs
 using Log4NetWrapperLite;
 
@@ -55,8 +55,7 @@ public class Program {
 }
 ```
 
-## Customization
-### RichTextBox style (below is the default style) 
+#### Changing RichTextBox style (below is the default style) 
 ```cs
 using log4net.Core;
 using System.Collections.Generic;
