@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+
+    <licenseUrl>https://opensource.org/licenses/mit-license.php</licenseUrl>
+    <projectUrl>https://github.com/bphenriques/Log4NetWrapperLite</projectUrl>
+    <tags>Log4net RichTextbox</tags>
+    <releaseNotes>Initial Release.</releaseNotes>
+
+</package>
