@@ -30,11 +30,9 @@ public ConsoleTextBoxView() {
   RichTextBoxLog4NetAppender appender = Logger.GetAppender<RichTextBoxLog4NetAppender>();
   if (appender != null)
       appender.RichTextBox = LogTextBox;
-
-  Singleton<ConsoleViewManager>.Instance.textBox = LogTextBox;
 }
 
-//Quality Of Life extra
+//Not needed. It's just a Quality Of Life feature
 private void LogTextBox_TextChanged(object sender, TextChangedEventArgs e) {
   // set the current caret position to the end
   LogTextBox.ScrollToEnd();
