@@ -1,6 +1,8 @@
 # Log4NetWrapperLite
 
-Wraps some common
+Wraps common operations regarding [Log4Net](https://logging.apache.org/log4net/). More useful it provides a mechanism to present the logs on a richtextbox with custom colors.
+
+The provided RichTextBox appender is also compatible with [Log4Net.Async](https://github.com/cjbhaines/Log4Net.Async)! 
 
 ## Examples
 
@@ -73,6 +75,7 @@ internal class DefaultLogFormatter : ILogFormatter {
   public Brush DefaultPrefixForegroundColor => Brushes.White;       
   public Brush PrefixBackgroundColor => Brushes.Black;
   public Brush TextBackgroundColor =>Brushes.Black;
+  public Brush TextForegroundColor => Brushes.White;
   
   public string FormatPrefix(LoggingEvent e) {
     return new StringBuilder(e.TimeStamp.ToString("yyyy-MM-dd HH:mm:ss,fff"))
