@@ -4,6 +4,9 @@ Wraps common operations regarding [Log4Net](https://logging.apache.org/log4net/)
 
 The provided RichTextBox appender is also compatible with [Log4Net.Async](https://github.com/cjbhaines/Log4Net.Async)! 
 
+## Screenshot
+![alt tag](https://github.com/bphenriques/Log4NetWrapperLite/blob/master/img/Screenshot.png)
+
 ## Examples
 
 ### Logging events
