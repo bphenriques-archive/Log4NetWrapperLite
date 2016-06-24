@@ -7,6 +7,41 @@ The provided RichTextBox appender is also compatible with [Log4Net.Async](https:
 ## Screenshot
 ![alt tag](https://github.com/bphenriques/Log4NetWrapperLite/blob/master/img/Screenshot.png)
 
+## Installation
+1. Add Log4NetWrapperLite nuget package in your nuget packages browser
+2. Add RichTextBoxLog4Net appender in the App.config
+```xml
+<appender name="RichTextBoxLog4Net" type="Log4NetWrapperLite.RichTextBoxLog4NetAppender">
+  <layout type="log4net.Layout.PatternLayout">
+    <param name="ConversionPattern" value="%date{HH:mm:ss,fff} [%thread] %level - %message%newline" />
+  </layout>
+</appender>
+
+<root>
+  <level value="DEBUG" />
+  <appender-ref ref="RichTextBoxLog4Net" />
+</root>
+```
+
+3. Set the richtext box in the user Control:
+```cs
+public ConsoleTextBoxView() {
+  InitializeComponent();
+  RichTextBoxLog4NetAppender appender = Logger.GetAppender<RichTextBoxLog4NetAppender>();
+  if (appender != null)
+      appender.RichTextBox = LogTextBox;
+
+  Singleton<ConsoleViewManager>.Instance.textBox = LogTextBox;
+}
+
+//Quality Of Life extra
+private void LogTextBox_TextChanged(object sender, TextChangedEventArgs e) {
+  // set the current caret position to the end
+  LogTextBox.ScrollToEnd();
+}
+``` 
+
+
 ## Examples
 
 ### Logging events
@@ -27,40 +62,6 @@ public class Program {
 ### Getting custom implementation of IAppender and using it (the below example retrives the log folder from the FileAppender)
 ```cs
 var logFolder = Path.GetDirectoryName(Logger.GetAppender<FileAppender>()?.File ?? string.Empty);
-```
-
-### Setting up RichTextbox appender
-
-App.config
-```xml
-<appender name="RichTextBoxLog4Net" type="Log4NetWrapperLite.RichTextBoxLog4NetAppender">
-  <layout type="log4net.Layout.PatternLayout">
-    <param name="ConversionPattern" value="%date{HH:mm:ss,fff} [%thread] %level - %message%newline" />
-  </layout>
-</appender>
-
-<root>
-  <level value="DEBUG" />
-  <appender-ref ref="RichTextBoxLog4Net" />
-</root>
-```
-
-In the User Control:
-```cs
-public ConsoleTextBoxView() {
-  InitializeComponent();
-  RichTextBoxLog4NetAppender appender = Logger.GetAppender<RichTextBoxLog4NetAppender>();
-  if (appender != null)
-      appender.RichTextBox = LogTextBox;
-
-  Singleton<ConsoleViewManager>.Instance.textBox = LogTextBox;
-}
-
-//Quality Of Life extra
-private void LogTextBox_TextChanged(object sender, TextChangedEventArgs e) {
-  // set the current caret position to the end
-  LogTextBox.ScrollToEnd();
-}
 ```
 
 ### Customizing the RichTextBox style (this is the default implementation for a RichTextBox with black background :) ) 
