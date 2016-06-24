@@ -40,11 +40,7 @@ private void LogTextBox_TextChanged(object sender, TextChangedEventArgs e) {
   LogTextBox.ScrollToEnd();
 }
 ``` 
-
-
-## Examples
-
-### Logging events
+4. Log using:
 ```cs
 using Log4NetWrapperLite;
 
@@ -59,12 +55,8 @@ public class Program {
 }
 ```
 
-### Getting custom implementation of IAppender and using it (the below example retrives the log folder from the FileAppender)
-```cs
-var logFolder = Path.GetDirectoryName(Logger.GetAppender<FileAppender>()?.File ?? string.Empty);
-```
-
-### Customizing the RichTextBox style (this is the default implementation for a RichTextBox with black background :) ) 
+## Customization
+### RichTextBox style (below is the default style) 
 ```cs
 using log4net.Core;
 using System.Collections.Generic;
