@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Log4Net wrapper that supports logging to a Wpf RichTextBox using custom Appender")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Bruno Henriques")]
-[assembly: AssemblyVersionAttribute("1.2.3")]
+[assembly: AssemblyVersionAttribute("1.3.1")]
 [assembly: AssemblyProduct("Log4NetWrapperLite")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]

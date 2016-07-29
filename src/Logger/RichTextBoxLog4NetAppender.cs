@@ -15,8 +15,7 @@ namespace Log4NetWrapperLite {
         /// <summary>
         ///  Represents the current Logging Format strategy for the prefix and the message
         /// </summary>
-        public ILogFormatter Formatter => _formatter;
-        private ILogFormatter _formatter = new DefaultLogFormatter();
+        public ILogFormatter Formatter { get; set; } = new DefaultLogFormatter();
 
         /// <summary>
         ///  Represents the destiny richTextBox that is defined in the WPF User Control instance
@@ -28,17 +27,13 @@ namespace Log4NetWrapperLite {
         /// if (appender != null)
         ///     appender.textBox = LogTextBox;
         /// </example>
-        public RichTextBox RichTextBox {
-            get { return _richTextBox; }
-            set { _richTextBox = value; }
-        }
-        private RichTextBox _richTextBox;
+        public RichTextBox RichTextBox { get; set; }
 
         /// <summary>
         ///  Responsible for appending the loggingEvent
         /// </summary>
         protected override void Append(LoggingEvent loggingEvent) {
-            if (_richTextBox != null) {
+            if (RichTextBox != null) {
                 Application.Current.Dispatcher.Invoke((Action)(() => Log(loggingEvent)));
             }
         }
@@ -46,28 +41,27 @@ namespace Log4NetWrapperLite {
         internal void Log(LoggingEvent loggingEvent) {
             Level level = loggingEvent.Level;
 
-            //setting up prefix foreground color
-            var levelToBrushPrefixColorMap = _formatter.LogLevelToPrefixForegroundBrush;
-            Brush defaultPrefixForegroundColor = _formatter.DefaultPrefixForegroundColor;
-            Brush prefixForegroundColor = levelToBrushPrefixColorMap.ContainsKey(level) ? levelToBrushPrefixColorMap[level] : defaultPrefixForegroundColor;
+            //setting up prefix foreground and background color
+            Brush prefixForegroundColor = Formatter.LevelToPrefixForegroundBrush(level);
+            Brush prefixBackgroundColor = Formatter.LevelToPrefixBackgroundBrush(level);
 
-            //setting up prefix foreground color
-            var levelToBrushTextColorMap = _formatter.LogLevelToTextForegroundBrush;
-            Brush defaultTextForegroundColor = _formatter.DefaultTextForegroundColor;
-            Brush textForegroundColor = levelToBrushTextColorMap.ContainsKey(level) ? levelToBrushTextColorMap[level] : defaultTextForegroundColor;
+            Brush textForegroundColor = Formatter.LevelToTextForegroundBrush(level);
+            Brush textBackgroundColor = Formatter.LevelToTextBackgroundBrush(level);
 
-            string prefix = _formatter.FormatPrefix(loggingEvent);
-            string msg = _formatter.FormatMessage(loggingEvent) + Environment.NewLine;
+            string prefix = Formatter.FormatPrefix(loggingEvent);
+            string msg = Formatter.FormatMessage(loggingEvent) + Environment.NewLine;
 
-            AppendTextAux(prefixForegroundColor, _formatter.PrefixBackgroundColor, prefix);
-            AppendTextAux(textForegroundColor, _formatter.TextBackgroundColor, msg);
+            RichTextBox.BeginChange();
+            AppendTextAux(prefixForegroundColor, prefixBackgroundColor, prefix);
+            AppendTextAux(textForegroundColor, textBackgroundColor, msg);
+            RichTextBox.EndChange();
         }
 
-        private void AppendTextAux(Brush textColor, Brush backColor, string text) {
-            TextRange tr = new TextRange(_richTextBox.Document.ContentEnd, _richTextBox.Document.ContentEnd);
+        private void AppendTextAux(Brush foregroundColor, Brush backgroundColor, string text) {
+            TextRange tr = new TextRange(RichTextBox.Document.ContentEnd, RichTextBox.Document.ContentEnd);
             tr.Text = text;
-            tr.ApplyPropertyValue(TextElement.BackgroundProperty, backColor);
-            tr.ApplyPropertyValue(TextElement.ForegroundProperty, textColor);            
+            tr.ApplyPropertyValue(TextElement.BackgroundProperty, backgroundColor);
+            tr.ApplyPropertyValue(TextElement.ForegroundProperty, foregroundColor);            
         }
     }
 }

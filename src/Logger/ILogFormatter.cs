@@ -1,6 +1,4 @@
 ﻿using log4net.Core;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Media;
 
 namespace Log4NetWrapperLite {
@@ -19,6 +17,7 @@ namespace Log4NetWrapperLite {
         /// Returns the string representation of the prefix
         /// </returns>
         /// <example> return new StringBuilder(e.Level.ToString()).Append(" - ").ToString(); </example>
+
         string FormatPrefix(LoggingEvent e);
 
         /// <summary>
@@ -35,41 +34,32 @@ namespace Log4NetWrapperLite {
         string FormatMessage(LoggingEvent e);
 
         /// <summary>
-        ///  Represents the foreground color of the prefixes given the logging level
-        /// </summary>
-        /// <returns>
-        /// Returns a map from a logging level to a brush
-        /// </returns>
-        /// <example> return e.RenderedMessage; </example>
-        Dictionary<Level, Brush> LogLevelToPrefixForegroundBrush { get; }
-
-        /// <summary>
-        ///  Represents the foreground color of the text given the logging level
-        /// </summary>
-        /// <returns>
-        /// Returns a map from a logging level to a brush
-        /// </returns>
-        /// <example> return e.RenderedMessage; </example>
-        Dictionary<Level, Brush> LogLevelToTextForegroundBrush { get; }
-
-        /// <summary>
-        ///  Represents the default color for the prefix foreground color
-        /// </summary>
-        Brush DefaultPrefixForegroundColor { get; }
-
-        /// <summary>
-        ///  Defines the Prefix Background Color. Can be set to just the textbox background color
-        /// </summary>
-        Brush PrefixBackgroundColor { get; }
-
-        /// <summary>
         ///  Defines the Text Background Color. Can be set to just the textbox background color
         /// </summary>
-        Brush TextBackgroundColor { get; }
+        /// <param name="level"></param>
+        /// <returns></returns>
+        Brush LevelToTextBackgroundBrush(Level level);
 
         /// <summary>
         ///  Defines the Text Foreground Color. Can be set to just the textbox background color
         /// </summary>
-        Brush DefaultTextForegroundColor { get; }
+        /// <param name="level"></param>
+        /// <returns></returns>
+        Brush LevelToTextForegroundBrush(Level level);
+
+
+        /// <summary>
+        ///  Defines the Text Background Color for the prefix
+        /// </summary>
+        /// <param name="level"></param>
+        /// <returns></returns>
+        Brush LevelToPrefixBackgroundBrush(Level level);
+
+        /// <summary>
+        ///  Defines the Text Foreground Color for the prefix
+        /// </summary>
+        /// <param name="level"></param>
+        /// <returns></returns>
+        Brush LevelToPrefixForegroundBrush(Level level);
     }
 }
